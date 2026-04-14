@@ -4,7 +4,7 @@ CFLAGS ?= -std=c11 -Wall -Wextra -O2
 SRC_DIR := src
 BIN_DIR := bin
 
-TARGET := $(BIN_DIR)/dumbski
+TARGET := $(BIN_DIR)/dumbski_beast_mode
 SRC := $(SRC_DIR)/main.c
 
 UNAME_S := $(shell uname -s)
@@ -17,14 +17,7 @@ endif
 all: $(TARGET)
 
 
-.PHONY: check-linux
-check-linux:
-	@if [ "$(UNAME_S)" != "Linux" ]; then \
-		echo "Error: this project is Linux-only (needs OpenSSL headers + libcrypto)."; \
-		exit 2; \
-	fi
-
-$(TARGET): check-linux $(SRC) | $(BIN_DIR)
+$(TARGET): $(SRC) | $(BIN_DIR)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 $(BIN_DIR):
